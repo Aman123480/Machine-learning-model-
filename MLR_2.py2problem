@@ -1,0 +1,45 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Jun 13 13:08:41 2022
+
+@author: Hi
+"""
+
+import pandas as pd
+df=pd.read_csv("Anydomain.csv")
+df
+df.shape
+
+# step2: split as X and Y variables
+Y = df["Y"]
+# X = df[["X1","X2","X3","X4"]]
+
+# X = df[["X4"]]
+# X = df[["X4","X2"]]
+X = df[["X2"]]
+X = df[["X4","X1"]]
+
+
+
+# step3: 
+df.corr()
+
+# step4: Fit the model
+from sklearn.linear_model import LinearRegression
+LR = LinearRegression()
+LR.fit(X,Y)
+
+# step5: prediction
+Y_pred = LR.predict(X)
+
+# step6: Evaluating the model
+from sklearn.metrics import mean_squared_error, r2_score
+mse = mean_squared_error(Y,Y_pred)
+mse
+
+import numpy as np
+RMSE = np.sqrt(mse)
+print("Root mean squared error for the given model is: ", RMSE.round(3))
+
+r2 = r2_score(Y,Y_pred)
+r2*100
